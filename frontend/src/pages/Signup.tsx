@@ -4,7 +4,7 @@ import { signup, saveToken } from '../api/auth'
 import { Wallet, Eye, EyeOff } from 'lucide-vue-next'
 
 export default defineComponent({
-  name: 'SignupComponent',
+  name: 'SignUp',
 
   setup() {
     const router   = useRouter()
