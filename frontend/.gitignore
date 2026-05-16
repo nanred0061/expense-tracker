@@ -43,3 +43,5 @@ __pycache__/
 *.pyc
 expenses.db
 *.egg-info/
+
+.vercel
