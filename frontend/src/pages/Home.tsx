@@ -61,7 +61,7 @@ const loadAlerts = async () => {
         counts[e.category] = (counts[e.category] || 0) + e.amount
       })
       const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1])
-      return sorted.length > 0 ? sorted[0][0] : '—'
+      return sorted.length > 0 ? sorted[0]?.[0] ?? '—' : '—'
     })
 
     const loadExpenses = async () => {

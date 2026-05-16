@@ -32,8 +32,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const config: { icon: string; bg: string; color: string } = CATEGORY_CONFIG[props.expense.category] || CATEGORY_CONFIG.other
-
+const config = CATEGORY_CONFIG[props.expense.category] || CATEGORY_CONFIG.other
     // Format date from "2025-04-18" to "Apr 18, 2025"
     const formatDate = (dateStr: string) => {
       const date = new Date(dateStr)
@@ -50,9 +49,9 @@ export default defineComponent({
         {/* Category icon */}
         <div
           class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-          style={`background:${config.bg}`}
+       style={`background:${config?.bg || '#f1f5f9'}`}
         >
-          {config.icon}
+          {config?.icon || '📋'}
         </div>
 
         {/* Expense details */}
@@ -65,13 +64,14 @@ export default defineComponent({
               <div class="flex items-center gap-2 mt-0.5">
                 <span
                   class="text-xs font-medium px-2 py-0.5 rounded-full capitalize"
-                  style={`background:${config.bg};color:${config.color}`}
+                  style={`background:${config?.bg || '#f1f5f9'};color:${config?.color || '#475569'}`}
                 >
                   {props.expense.category}
                 </span>
                 <span class="text-xs text-gray-400">
                   {formatDate(props.expense.date)}
                 </span>
+
               </div>
               {/* Notes if present */}
               {props.expense.notes && (

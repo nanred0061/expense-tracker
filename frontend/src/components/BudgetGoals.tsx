@@ -108,7 +108,7 @@ export default defineComponent({
               >
                 {CATEGORIES.map(cat => (
                   <option key={cat} value={cat}>
-                    {CATEGORY_CONFIG[cat].icon} {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    {CATEGORY_CONFIG[cat]?.icon} {cat.charAt(0).toUpperCase() + cat.slice(1)}
                   </option>
                 ))}
               </select>
@@ -161,9 +161,9 @@ export default defineComponent({
                   {/* Category icon */}
                   <div
                     class="w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0"
-                    style={`background:${config.bg}`}
+                    style={`background:${config?.bg || '#f1f5f9'};color:${config?.color || '#475569'}`}
                   >
-                    {config.icon}
+                    {config?.icon || '📋'}
                   </div>
 
                   {/* Progress bar */}

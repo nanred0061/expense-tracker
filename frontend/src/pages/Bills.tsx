@@ -167,8 +167,8 @@ export default defineComponent({
     const inputClass = "w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-50"
 
     const BillCard = (bill: Bill) => {
-      const config  = BILL_COLORS[bill.type] || BILL_COLORS.other
-      const billType = BILL_TYPES.find(t => t.value === bill.type)
+      const config  = BILL_COLORS[bill.type] || BILL_COLORS['other']
+      const billType = BILL_TYPES.find(t => t.value === bill.type) || BILL_TYPES[0]
 
       return (
         <div
@@ -184,7 +184,7 @@ export default defineComponent({
           {/* Icon */}
           <div
             class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-            style={`background:${config.bg}`}
+          style={`background:${config?.bg || '#f1f5f9'}`}
           >
             {billType?.icon || '📋'}
           </div>
@@ -664,7 +664,7 @@ export default defineComponent({
                       >
                         {CATEGORIES.map(cat => (
                           <option key={cat} value={cat}>
-                            {CATEGORY_CONFIG[cat].icon} {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            {CATEGORY_CONFIG[cat]?.icon} {cat.charAt(0).toUpperCase() + cat.slice(1)}
                           </option>
                         ))}
                       </select>
@@ -738,9 +738,9 @@ export default defineComponent({
                       >
                         <div
                           class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                          style={`background:${config.bg}`}
+                         style={`background:${config?.bg || '#f1f5f9'}`}
                         >
-                          {config.icon}
+                        {config?.icon || '📋'}
                         </div>
                         <div class="flex-1">
                           <p class="text-sm font-semibold text-gray-800">
