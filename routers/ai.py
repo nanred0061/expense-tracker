@@ -12,26 +12,35 @@ router = APIRouter(prefix="/ai", tags=["AI"])
 # ─── AI CLIENT ────────────────────────────────────────
 # Uses Groq in production, Ollama locally
 def call_ai(messages: list) -> str:
+    import os
     groq_key = os.getenv("GROQ_API_KEY")
-
+    
+    print(f"DEBUG: GROQ_API_KEY present: {bool(groq_key)}")
+    
     if groq_key:
-        # Production — use Groq API (free, fast)
-        from groq import Groq
-        client = Groq(api_key=groq_key)
-        response = client.chat.completions.create(
-            model      = "llama3-8b-8192",
-            messages   = messages,
-            max_tokens = 1024
-        )
-        return response.choices[0].message.content
+        try:
+            from groq import Groq
+            client = Groq(api_key=groq_key)
+            response = client.chat.completions.create(
+                model      = "llama3-8b-8192",
+                messages   = messages,
+                max_tokens = 1024
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"DEBUG: Groq error: {str(e)}")
+            return f"AI error: {str(e)}"
     else:
-        # Local development — use Ollama
-        import ollama
-        response = ollama.chat(
-            model    = "llama3.2",
-            messages = messages
-        )
-        return response["message"]["content"]
+        try:
+            import ollama
+            response = ollama.chat(
+                model    = "llama3.2",
+                messages = messages
+            )
+            return response["message"]["content"]
+        except Exception as e:
+            print(f"DEBUG: Ollama error: {str(e)}")
+            return "AI is not available. Make sure Ollama is running locally."
 
 
 # ─── BUILD CONTEXT ────────────────────────────────────
