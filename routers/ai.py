@@ -22,7 +22,7 @@ def call_ai(messages: list) -> str:
             from groq import Groq
             client = Groq(api_key=groq_key)
             response = client.chat.completions.create(
-                model      = "llama3-8b-8192",
+              model = "llama-3.1-8b-instant",
                 messages   = messages,
                 max_tokens = 1024
             )
